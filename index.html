@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Aptos:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-       :root {
+      :root {
     --primary-color: #000000;
     --accent-color: #FF6600;
     --text-color: #333333;
@@ -250,8 +250,6 @@ body {
     color: #000000;
     line-height: 1.2;
 }
-
-/* Removido o subtítulo */
 
 /* Card Styles */
 .info-card {
@@ -1386,7 +1384,7 @@ body {
     z-index: 20001;
 }
 
-/* Translation Tool Styles */
+/* Translation Tool Styles - Melhorados para Mobile */
 .translation-tool {
     position: fixed;
     bottom: 20px;
@@ -1398,11 +1396,31 @@ body {
     z-index: 1000;
     min-width: 300px;
     max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
     display: none;
+    /* Melhorias para mobile */
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
+    /* Adicionar suporte a gestos */
+    touch-action: pan-y;
 }
 
 .translation-tool.show {
     display: block;
+    /* Animação suave para mobile */
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .translation-header {
@@ -1412,6 +1430,9 @@ body {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #dee2e6;
+    /* Melhorias para mobile */
+    flex-wrap: nowrap;
+    min-height: 40px;
 }
 
 .translation-title {
@@ -1420,11 +1441,18 @@ body {
     color: var(--primary-color);
     display: flex;
     align-items: center;
+    /* Melhorias para mobile */
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .translation-title i {
     color: var(--accent-color);
     margin-right: 8px;
+    flex-shrink: 0;
 }
 
 .translation-close {
@@ -1436,24 +1464,58 @@ body {
     padding: 0.25rem;
     border-radius: 50%;
     transition: all 0.3s;
+    /* Melhorias para mobile */
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .translation-close:hover {
     background-color: var(--light-bg);
 }
 
+/* Melhorias para controles em mobile */
 .translation-controls {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
 }
 
 .translation-select {
     flex: 1;
+    min-width: 120px;
     padding: 0.5rem;
     border: 1px solid var(--border-color);
     border-radius: 6px;
     font-size: 0.9rem;
+    background-color: white;
+    cursor: pointer;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+/* Estilizar a seta do select de forma nativa */
+.translation-select::-webkit-scrollbar {
+    width: 8px;
+}
+
+.translation-select::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.translation-select::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.translation-select::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 }
 
 .translation-swap {
@@ -1468,6 +1530,7 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s;
+    flex-shrink: 0;
 }
 
 .translation-swap:hover {
@@ -1479,10 +1542,12 @@ body {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
 }
 
 .translation-btn {
     flex: 1;
+    min-width: 120px;
     padding: 0.5rem;
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -1491,6 +1556,15 @@ body {
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s;
+    /* Melhorias para mobile */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    min-height: 44px; /* Tamanho mínimo para toque em mobile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .translation-btn:hover {
@@ -1512,8 +1586,12 @@ body {
     color: #666;
     margin-top: 0.5rem;
     text-align: center;
+    /* Melhorias para mobile */
+    line-height: 1.4;
+    word-wrap: break-word;
 }
 
+/* Text Detection Mode - Melhorias para Mobile */
 .text-detection-mode {
     position: fixed;
     top: 80px;
@@ -1524,11 +1602,27 @@ body {
     padding: 1rem;
     z-index: 1000;
     min-width: 250px;
+    max-width: 90vw;
     display: none;
+    /* Melhorias para mobile */
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
 }
 
 .text-detection-mode.show {
     display: block;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .detection-header {
@@ -1538,6 +1632,8 @@ body {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #dee2e6;
+    flex-wrap: nowrap;
+    min-height: 40px;
 }
 
 .detection-title {
@@ -1546,11 +1642,17 @@ body {
     color: var(--primary-color);
     display: flex;
     align-items: center;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .detection-title i {
     color: var(--accent-color);
     margin-right: 8px;
+    flex-shrink: 0;
 }
 
 .detection-close {
@@ -1562,6 +1664,12 @@ body {
     padding: 0.25rem;
     border-radius: 50%;
     transition: all 0.3s;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .detection-close:hover {
@@ -1576,24 +1684,34 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 0.5rem;
+    padding: 0.25rem 0;
 }
 
 .detection-option input {
     margin-right: 0.5rem;
+    /* Melhorias para mobile */
+    min-width: 20px;
+    min-height: 20px;
+    transform: scale(1.2);
 }
 
 .detection-option label {
     font-size: 0.9rem;
     cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    line-height: 1.4;
 }
 
 .detection-actions {
     display: flex;
     gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .detection-btn {
     flex: 1;
+    min-width: 100px;
     padding: 0.5rem;
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -1602,6 +1720,14 @@ body {
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .detection-btn:hover {
@@ -1628,11 +1754,14 @@ body {
     background-color: #c82333;
 }
 
+/* Highlighted elements - Melhorias para mobile */
 .highlighted-element {
     position: relative;
     outline: 2px dashed var(--accent-color);
     outline-offset: 2px;
     transition: all 0.3s ease;
+    /* Melhorias para mobile */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .highlighted-element:hover {
@@ -1655,6 +1784,8 @@ body {
     font-weight: bold;
     z-index: 1001;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    /* Melhorias para mobile */
+    pointer-events: none;
 }
 
 /* Final Slide Styles */
@@ -1886,6 +2017,28 @@ body {
         right: 10px;
         min-width: auto;
         max-width: none;
+        max-height: 70vh;
+        padding: 0.8rem;
+    }
+    
+    .translation-title {
+        font-size: 0.9rem;
+    }
+    
+    .translation-select {
+        font-size: 0.8rem;
+        padding: 0.4rem;
+        min-width: 100px;
+    }
+    
+    .translation-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem;
+        min-width: 100px;
+    }
+    
+    .translation-status {
+        font-size: 0.75rem;
     }
     
     .text-detection-mode {
@@ -1893,6 +2046,29 @@ body {
         left: 10px;
         right: 10px;
         min-width: auto;
+        padding: 0.8rem;
+    }
+    
+    .detection-title {
+        font-size: 0.9rem;
+    }
+    
+    .detection-option label {
+        font-size: 0.8rem;
+    }
+    
+    .detection-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem;
+        min-width: 80px;
+    }
+    
+    .text-badge {
+        width: 18px;
+        height: 18px;
+        font-size: 9px;
+        top: -6px;
+        right: -6px;
     }
     
     .final-slide .quote-text {
@@ -2221,36 +2397,6 @@ body {
         bottom: 10px;
     }
     
-    /* Translation tool em mobile */
-    .translation-tool {
-        bottom: 10px;
-        left: 10px;
-        right: 10px;
-        min-width: auto;
-        max-width: none;
-    }
-    
-    .translation-controls {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    .translation-select {
-        width: 100%;
-    }
-    
-    .translation-swap {
-        align-self: center;
-    }
-    
-    /* Text detection mode em mobile */
-    .text-detection-mode {
-        top: 70px;
-        left: 10px;
-        right: 10px;
-        min-width: auto;
-    }
-    
     /* Config section em mobile */
     .config-section {
         right: 10px;
@@ -2312,6 +2458,35 @@ body {
         width: 35px;
         height: 35px;
         font-size: 0.9rem;
+    }
+    
+    .translation-controls {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .translation-select {
+        width: 100%;
+    }
+    
+    .translation-swap {
+        align-self: center;
+        margin-top: 0.3rem;
+    }
+    
+    .translation-actions {
+        flex-direction: column;
+    }
+    
+    .text-detection-mode {
+        top: 60px;
+        left: 5px;
+        right: 5px;
+        padding: 0.6rem;
+    }
+    
+    .detection-actions {
+        flex-direction: column;
     }
 }
     </style>
@@ -6340,78 +6515,195 @@ class PowerPointGenerator {
         }
 
         // ==================== FUNÇÕES DA FERRAMENTURA DE TRADUÇÃO ====================
-        function toggleTranslationTool() {
-            const tool = document.getElementById('translationTool');
-            tool.classList.toggle('show');
+      // ==================== FUNÇÕES DA FERRAMENTURA DE TRADUÇÃO - MELHORADAS PARA MOBILE ====================
+function toggleTranslationTool() {
+    const tool = document.getElementById('translationTool');
+    
+    // Prevenir múltiplos toques rápidos
+    if (tool.classList.contains('show')) {
+        tool.classList.remove('show');
+        setTimeout(() => {
+            tool.style.display = 'none';
+        }, 300);
+    } else {
+        tool.style.display = 'block';
+        // Forçar reflow para garantir que a animação funcione
+        tool.offsetHeight;
+        tool.classList.add('show');
+        
+        // Carregar cache de tradução
+        TranslationManager.loadCache();
 
-            if (tool.classList.contains('show')) {
-                // Carregar cache de tradução
-                TranslationManager.loadCache();
+        // Atualizar status
+        document.getElementById('translationStatus').textContent =
+            'Clique em "Detectar Textos" para identificar todos os textos na página';
+        
+        // Scroll suave para a ferramenta em mobile
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                tool.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+    }
+}
 
-                // Atualizar status
-                document.getElementById('translationStatus').textContent =
-                    'Clique em "Detectar Textos" para identificar todos os textos na página';
+function toggleDetectionMode() {
+    const mode = document.getElementById('textDetectionMode');
+    
+    if (mode.classList.contains('show')) {
+        mode.classList.remove('show');
+        setTimeout(() => {
+            mode.style.display = 'none';
+        }, 300);
+    } else {
+        mode.style.display = 'block';
+        // Forçar reflow
+        mode.offsetHeight;
+        mode.classList.add('show');
+    }
+}
+
+function startDetection() {
+    // Prevenir múltiplas execuções
+    if (detectionMode) return;
+    
+    detectionMode = true;
+    toggleDetectionMode();
+
+    // Detectar elementos de texto
+    TranslationManager.detectTextElements();
+
+    // Atualizar status
+    document.getElementById('translationStatus').textContent =
+        `${detectedTextElements.length} elementos de texto detectados`;
+
+    UIController.showNotification(`${detectedTextElements.length} elementos de texto detectados`, 'success');
+    
+    // Feedback tátil em dispositivos móveis
+    if ('vibrate' in navigator) {
+        navigator.vibrate(50);
+    }
+}
+
+function stopDetection() {
+    if (!detectionMode) return;
+    
+    detectionMode = false;
+
+    // Limpar destaques
+    document.querySelectorAll('.highlighted-element').forEach(el => {
+        el.classList.remove('highlighted-element');
+        const badge = el.querySelector('.text-badge');
+        if (badge) badge.remove();
+    });
+
+    detectedTextElements = [];
+
+    // Atualizar status
+    document.getElementById('translationStatus').textContent =
+        'Modo de detecção desativado';
+
+    UIController.showNotification('Modo de detecção desativado', 'info');
+    
+    // Feedback tátil
+    if ('vibrate' in navigator) {
+        navigator.vibrate(50);
+    }
+}
+
+async function translateAll() {
+    const sourceLang = document.getElementById('sourceLanguage').value;
+    const targetLang = document.getElementById('targetLanguage').value;
+    
+    // Prevenir múltiplas traduções simultâneas
+    const translateBtn = document.getElementById('translateAllBtn');
+    if (translateBtn.disabled) return;
+    
+    translateBtn.disabled = true;
+    translateBtn.textContent = 'Traduzindo...';
+    
+    try {
+        // Traduzir elementos detectados
+        await TranslationManager.translateAllElements(sourceLang, targetLang);
+        
+        // Forçar tradução de campos dinâmicos
+        await TranslationManager.forceTranslateAllDynamicFields(sourceLang, targetLang);
+        
+        // Feedback tátil de sucesso
+        if ('vibrate' in navigator) {
+            navigator.vibrate([50, 50, 50]);
+        }
+    } catch (error) {
+        console.error('Erro na tradução:', error);
+        UIController.showNotification('Erro na tradução. Tente novamente.', 'error');
+        
+        // Feedback tátil de erro
+        if ('vibrate' in navigator) {
+            navigator.vibrate(100);
+        }
+    } finally {
+        translateBtn.disabled = false;
+        translateBtn.innerHTML = '<i class="fas fa-globe me-1"></i>Traduzir Tudo';
+    }
+}
+        
+function swapLanguages() {
+    const sourceLang = document.getElementById('sourceLanguage');
+    const targetLang = document.getElementById('targetLanguage');
+
+    // Trocar valores
+    const temp = sourceLang.value;
+    sourceLang.value = targetLang.value;
+    targetLang.value = temp;
+    
+    // Feedback visual
+    const swapBtn = document.getElementById('swapLanguagesBtn');
+    swapBtn.style.transform = 'rotate(180deg)';
+    setTimeout(() => {
+        swapBtn.style.transform = '';
+    }, 300);
+}
+
+// Melhorar eventos de toque para mobile
+document.addEventListener('DOMContentLoaded', function() {
+    // Adicionar suporte a eventos de toque para a ferramenta de tradução
+    const translationTool = document.getElementById('translationTool');
+    const textDetectionMode = document.getElementById('textDetectionMode');
+    
+    // Prevenir fechamento acidental ao tocar dentro da ferramenta
+    [translationTool, textDetectionMode].forEach(element => {
+        if (element) {
+            element.addEventListener('touchstart', function(e) {
+                // Não propagar o evento para o body
+                e.stopPropagation();
+            }, { passive: true });
+        }
+    });
+    
+    // Fechar ferramentas ao tocar fora
+    document.body.addEventListener('touchstart', function(e) {
+        if (translationTool && translationTool.classList.contains('show')) {
+            if (!translationTool.contains(e.target)) {
+                toggleTranslationTool();
             }
         }
-
-        function toggleDetectionMode() {
-            const mode = document.getElementById('textDetectionMode');
-            mode.classList.toggle('show');
-        }
-
-        function startDetection() {
-            detectionMode = true;
-            toggleDetectionMode();
-
-            // Detectar elementos de texto
-            TranslationManager.detectTextElements();
-
-            // Atualizar status
-            document.getElementById('translationStatus').textContent =
-                `${detectedTextElements.length} elementos de texto detectados`;
-
-            UIController.showNotification(`${detectedTextElements.length} elementos de texto detectados`, 'success');
-        }
-
-        function stopDetection() {
-            detectionMode = false;
-
-            // Limpar destaques
-            document.querySelectorAll('.highlighted-element').forEach(el => {
-                el.classList.remove('highlighted-element');
-                const badge = el.querySelector('.text-badge');
-                if (badge) badge.remove();
-            });
-
-            detectedTextElements = [];
-
-            // Atualizar status
-            document.getElementById('translationStatus').textContent =
-                'Modo de detecção desativado';
-
-            UIController.showNotification('Modo de detecção desativado', 'info');
-        }
-
-        function translateAll() {
-            const sourceLang = document.getElementById('sourceLanguage').value;
-            const targetLang = document.getElementById('targetLanguage').value;
-
-            // Traduzir elementos detectados
-            TranslationManager.translateAllElements(sourceLang, targetLang);
-            
-            // Forçar tradução de campos dinâmicos
-            TranslationManager.forceTranslateAllDynamicFields(sourceLang, targetLang);
-        }
         
-        function swapLanguages() {
-            const sourceLang = document.getElementById('sourceLanguage');
-            const targetLang = document.getElementById('targetLanguage');
-
-            // Trocar valores
-            const temp = sourceLang.value;
-            sourceLang.value = targetLang.value;
-            targetLang.value = temp;
+        if (textDetectionMode && textDetectionMode.classList.contains('show')) {
+            if (!textDetectionMode.contains(e.target)) {
+                toggleDetectionMode();
+            }
         }
+    }, { passive: true });
+    
+    // Melhorar experiência em dispositivos móveis
+    if (window.innerWidth <= 768) {
+        // Ajustar posição dos botões de ação em mobile
+        const actionButtons = document.querySelector('.action-buttons');
+        if (actionButtons) {
+            actionButtons.style.bottom = '80px'; // Mover para cima para não cobrir a ferramenta
+        }
+    }
+});
 
         // ==================== CONTROLADOR DE UI ====================
         const UIController = {
